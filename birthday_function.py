@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 from collections import defaultdict
 
+# The function of displaying a list of colleagues
+# who need to be congratulated on their birthdays this week.
 def get_birthdays_per_week(users):
     birthday_dict = defaultdict(list)
     today = datetime.today().date()
@@ -13,7 +15,8 @@ def get_birthdays_per_week(users):
         delta_days = (birthday_this_year - today).days
 
         if delta_days < 7:
-            birthday_this_year = birthday_this_year.replace(year=today.year + 1)
+            birthday_this_year = birthday_this_year.replace(
+                year=today.year + 1)
             delta_days = (birthday_this_year - today).days
 
         day_of_week = (today + timedelta(days=delta_days)).strftime("%A")
@@ -22,6 +25,7 @@ def get_birthdays_per_week(users):
     for day, names in birthday_dict.items():
         print(f"{day}: {', '.join(names)}")
 
+# Input dictionary
 users = [
     {"name": "Bill Gates", "birthday": datetime(1955, 10, 28)},
     {"name": "Jan Koum", "birthday": datetime(1976, 2, 24)},
@@ -30,4 +34,5 @@ users = [
     {"name": "Test User 2", "birthday": datetime(1980, 10, 21)}
 ]
 
+# Calling a function
 get_birthdays_per_week(users)

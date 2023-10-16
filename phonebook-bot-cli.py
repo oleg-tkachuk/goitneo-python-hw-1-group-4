@@ -1,3 +1,4 @@
+# Function decorator for validating function arguments
 def validate_args(expected_arg_count, command_example):
     def decorator(func):
         def wrapper(*args):
@@ -7,11 +8,8 @@ def validate_args(expected_arg_count, command_example):
         return wrapper
     return decorator
 
-def parse_input(user_input):
-    cmd, *args = user_input.split()
-    cmd = cmd.strip().lower()
-    return cmd, ' '.join(*args)
 
+# Function for processing the "add" command
 @validate_args(2, 'add [name] [phone]')
 def add_contact(args, contacts):
     if len(args) == 2:
@@ -19,8 +17,10 @@ def add_contact(args, contacts):
         contacts[name] = phone
         return "Contact added."
     else:
-        return("Invalid command format. Please use 'add [name] [phone]'.")
+        return ("Invalid command format. Please use 'add [name] [phone]'.")
 
+
+# Function for processing the "change" command
 @validate_args(2, 'change [name] [phone]')
 def change_contact(args, contacts):
     name, phone = args
@@ -30,6 +30,8 @@ def change_contact(args, contacts):
     else:
         return "Contact not found."
 
+
+# Function for processing the "phone" command
 @validate_args(1, 'phone [name]')
 def show_phone(args, contacts):
     name = args[0]
@@ -39,13 +41,19 @@ def show_phone(args, contacts):
     else:
         return "Contact not found."
 
+
+# Function for processing the "all" command
 def show_all(contacts):
     if contacts:
-        return "\n".join([f"{name}: {phone}" for name, phone in contacts.items()])
+        return "\n".join([f"{name}: {phone}" for name,
+                         phone in contacts.items()])
     else:
         return "No contacts."
 
+
+# The main function for user interaction
 def main():
+    # Starter dictionary for storing contacts
     contacts = {}
     print("Welcome to the assistant bot!")
 
@@ -70,5 +78,7 @@ def main():
         else:
             print("Invalid command.")
 
+
+# Main function
 if __name__ == "__main__":
     main()
