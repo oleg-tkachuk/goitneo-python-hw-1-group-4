@@ -12,12 +12,9 @@ def validate_args(expected_arg_count, command_example):
 # Function for processing the "add" command
 @validate_args(2, 'add [name] [phone]')
 def add_contact(args, contacts):
-    if len(args) == 2:
-        name, phone = args
-        contacts[name] = phone
-        return "Contact added."
-    else:
-        return ("Invalid command format. Please use 'add [name] [phone]'.")
+    name, phone = args
+    contacts[name] = phone
+    return "Contact added."
 
 
 # Function for processing the "change" command
@@ -35,7 +32,6 @@ def change_contact(args, contacts):
 @validate_args(1, 'phone [name]')
 def show_phone(args, contacts):
     name = args[0]
-
     if name in contacts:
         return contacts[name]
     else:
